@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Surprise Spesial ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b6b;
+            opacity: 0;
+            animation: floatHeart 6s linear infinite;
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .title {
+            font-size: 2.5em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .surprise-box {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .surprise-box:hover {
+            transform: scale(1.02);
+        }
+        
+        .surprise-box h3 {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            animation: fadeIn 1s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .cute-image {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff9a9e);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #a18cd1, #fbc2eb);
+        }
+        
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            opacity: 0;
+            animation: confettiFall 5s linear infinite;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .hidden-content {
+            display: none;
+            animation: slideIn 0.8s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .countdown {
+            font-size: 2em;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2em;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="confetti" id="confetti"></div>
+    
+    <div class="container">
+        <h1 class="title">✨ Surprise Spesial! ✨</h1>
+        <p class="subtitle">Klik kotak di bawah untuk melihat kejutan manis!</p>
+        
+        <div class="surprise-box" onclick="revealMessage()">
+            <h3>🎁 Buka Hadiahmu!</h3>
+            <p>Klik aku untuk melihat kejutan spesial 💖</p>
+        </div>
+        
+        <div class="message" id="message">
+            <p>Hai Sayang! 💕</p>
+            <p>Kamu adalah orang yang paling spesial di dunia ini! Setiap hari bersamamu adalah hadiah terindah yang pernah kumiliki.</p>
+            <p>Terima kasih sudah menjadi dirimu yang luar biasa, selalu membuatku tersenyum, dan mengisi hidupku dengan kebahagiaan.</p>
+            <p>Kamu pantas mendapatkan semua hal terbaik di dunia ini! 🌟</p>
+        </div>
+        
+        <div class="cute-image">
+            <img src="images.jpeg" alt="Ilustrasi kartun lucu beruang dan kelinci saling berpelukan dengan latar hati dan bintang-bintang" />
+        </div>
+        
+        <button class="btn" onclick="showMoreSurprises()">🎉 Lebih Banyak Kejutan!</button>
+        
+        <div class="hidden-content" id="moreSurprises">
+            <h2 style="color: #ff6b6b; margin: 20px 0;">💖 5 Alasan Kamu Luar Biasa 💖</h2>
+            <div style="text-align: left; margin: 20px;">
+                <p style="margin: 10px 0;">1. 🥰 Kamu punya senyuman yang bisa menerangi hari terkelam</p>
+                <p style="margin: 10px 0;">2. 🌟 Kebaikan hatimu selalu membuat orang lain merasa spesial</p>
+                <p style="margin: 10px 0;">3. 💫 Kamu adalah pendengar yang hebat dan teman yang setia</p>
+                <p style="margin: 10px 0;">4. 🎨 Kreativitasmu selalu menginspirasi orang sekitar</p>
+                <p style="margin: 10px 0;">5. 🌈 Kamu membuat dunia menjadi tempat yang lebih indah</p>
+            </div>
+            
+            <div class="countdown" id="countdown">3</div>
+            <button class="btn btn-secondary" onclick="startFinalSurprise()">🎊 Final Surprise!</button>
+        </div>
+        
+        <div class="hidden-content" id="finalSurprise">
+            <h2 style="color: #ff6b6b; margin: 20px 0;">🎀 Untuk Kamu yang Teristimewa 🎀</h2>
+            <div style="background: #fff0f5; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <p style="font-size: 1.2em; color: #ff6b6b; font-weight: 500;">
+                    "Setiap detik bersamamu adalah momen berharga. Terima kasih sudah menjadi bagian dari hidupku. 
+                    Aku bersyukur memiliki seseorang sepertimu. Kamu adalah keajaiban dalam hidupku! 💫"
+                </p>
+            </div>
+            
+            <div class="cute-image">
+                <img src="images.jpeg" alt="Ilustrasi kartun pasangan sedang duduk di bawah bulan dan bintang dengan latar kota malam yang romantis" />
+            </div>
+            
+            <button class="btn" onclick="celebrate()">🎉 Rayakan!</button>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Create confetti
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            const colors = ['#ff6b6b', '#ff9a9e', '#a18cd1', '#fbc2eb', '#84fab0'];
+            
+            for (let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.animationDelay = Math.random() * 5 + 's';
+                piece.style.width = (Math.random() * 10 + 5) + 'px';
+                piece.style.height = (Math.random() * 10 + 5) + 'px';
+                confettiContainer.appendChild(piece);
+            }
+        }
+        
+        // Reveal message
+        function revealMessage() {
+            const message = document.getElementById('message');
+            message.style.display = 'block';
+            
+            // Add some cute effects
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    createHearts();
+                }, i * 200);
+            }
+        }
+        
+        // Show more surprises
+        function showMoreSurprises() {
+            document.getElementById('moreSurprises').style.display = 'block';
+        }
+        
+        // Start final surprise countdown
+        function startFinalSurprise() {
+            let count = 3;
+            const countdown = document.getElementById('countdown');
+            const countdownInterval = setInterval(() => {
+                countdown.textContent = count;
+                count--;
+                
+                if (count < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('moreSurprises').style.display = 'none';
+                    document.getElementById('finalSurprise').style.display = 'block';
+                    celebrate();
+                }
+            }, 1000);
+        }
+        
+        // Celebration function
+        function celebrate() {
+            createConfetti();
+            
+            // Add more hearts
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createHearts();
+                }, i * 100);
+            }
+            
+            // Play celebration sound (optional)
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBkCS2/LDciUCIHrR8tiJNwgTZ6fW5sVtKQ4cZJ7M2LxqJAwYWJnI0LJlIQkUWJTDzLxsIwgRV5PBx7dpIAkPV5G9xLZnHggOVY+6wbRlHQgMVI24vrJjHAgLU4u2vLBhGggKUom0uq5fGQgJUYizuKxeGAgIUIextqtcGAgHT4awtKlaGAgGT4Wus6dZGAgFT4StsaVYGAgET4OssKNXGAgDT4KrrqFWGAgCT4GqrKBVGAgBT4Cpqp5UGAgAT3+oqZxTGAgAT36nqJpSGAgAT32mqJlRGAgAT3ylp5hQGAgAT3ukppdPGAgAT3qjppZOGAgAT3mippVNGAgAT3ihppRMGAgAT3egppNLGAgAT3afppJJGAgAT3WepZFJGAgAT3SepZBIGAgAT3OdpY9HGAgAT3KcpY5GGAgAT3GbpY1FGAgAT3CapYxEGAgAT2+ZpYtDGAgAT26YpYpCGAgAT22XpYlBGAgAT2yWpYhAGAgAT2uVpYc/GAgAT2qUpYY+GAgAT2mTpYU9GAgAT2iSpYQ8GAgAT2eRpYM7GAgAT2aQpYI6GAgAT2WPpYE5GAgAT2SOpYA4GAgAT2ONpX83GAgAT2KMpX42GAgAT2GLpX01GAgAT2CKpXw0GAgAT1+JpXs0GAgAT16IpXozGAgAT12HpXkyGAgAT1yGpXgxGAgAT1uFpXcwGAgAT1qEpXcvGAgAT1mDpXYuGAgAT1iCpXUtGAgAT1eBpXQsGAgAT1aApXMrGAgAT1V/pXIqGAgAT1R+pXEpGAgAT1N9pXAoGAgAT1J8pW8nGAgAT1F7pW4mGAgAT1B6pW0lGAgAT095pWwkGAgAT054pWsjGAgAT012pWoiGAgAT0x1pWkhGAgAT0t0pWggGAgAT0pzpWcfGAgAT0lypWYeGAgAT0hxpWUdGAgAT0dwpWQcGAgAT0ZvpWMc');
+                audio.volume = 0.3;
+                audio.play();
+            } catch (e) {
+                console.log('Audio not supported');
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            
+            // Add some initial animation
+            setTimeout(() => {
+                document.querySelector('.title').style.transform = 'scale(1.1)';
+                document.querySelector('.title').style.transition = 'transform 0.5s ease';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+
